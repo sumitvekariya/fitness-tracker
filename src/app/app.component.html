@@ -1,8 +1,10 @@
 <mat-sidenav-container>
   <mat-sidenav #sideNavRef role="navigation" [opened]="sideNav">
     <mat-nav-list>
-      <a routerLink="/signup" mat-list-item (click)="sideNavRef.close()"><mat-icon>face</mat-icon><span class="mob-nav-item">Sign Up</span></a>
-      <a routerLink="/login" mat-list-item (click)="sideNavRef.close()"><mat-icon>input</mat-icon><span class="mob-nav-item">Login</span></a>
+      <a routerLink="/signup" mat-list-item (click)="sideNavRef.close()" *ngIf="!isAuth"><mat-icon>face</mat-icon><span class="mob-nav-item">Sign Up</span></a>
+      <a routerLink="/login" mat-list-item (click)="sideNavRef.close()" *ngIf="!isAuth"><mat-icon>input</mat-icon><span class="mob-nav-item">Login</span></a>
+      <a routerLink="/training" mat-list-item (click)="sideNavRef.close()" *ngIf="isAuth"><mat-icon>training</mat-icon><span class="mob-nav-item">Training</span></a>
+      <a mat-list-item (click)="onLogOut(sideNavRef)" *ngIf="isAuth"><mat-icon>logout</mat-icon><span class="mob-nav-item">Logout</span></a>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -21,10 +23,16 @@
       <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
         <ul fxLayout fxLayoutGap="10px" class="auth-links">
           <li>
-            <a routerLink="/signup">Sign Up</a>
+            <a routerLink="/signup" *ngIf="!isAuth">Sign Up</a>
           </li>
           <li>
-            <a routerLink="/login">Login</a>
+            <a routerLink="/login" *ngIf="!isAuth">Login</a>
+          </li>
+          <li>
+            <a routerLink="/training" *ngIf="isAuth">Training</a>
+          </li>
+          <li>
+            <a *ngIf="isAuth" (click)="onLogOut()">Logout</a>
           </li>
         </ul>
       </div>
